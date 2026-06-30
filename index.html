@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrapBlock: Stop Fake Casino Ad Scams on iPhone Before They Reach You</title>
+  <meta name="description" content="You trust TikTok to review its ads. You trust the App Store to block scams. Scammers exploit both. TrapBlock blocks the hidden relay domain before the chain completes. No app needed. iPhone setup in 2 minutes.">
+  <meta name="keywords" content="fake casino ads iPhone, TikTok casino scam, App Store gambling scam, casino ad blocker iPhone, DNS gambling block, fake gambling app, Instagram casino scam, block gambling ads">
+  <meta property="og:title" content="TrapBlock: Stop Fake Casino Ad Scams on iPhone">
+  <meta property="og:description" content="Scammers exploit your trust in TikTok, Meta, and the App Store to push fake casino apps. TrapBlock cuts the relay domain before the scam loads. iPhone setup in 2 minutes.">
+  <meta property="og:url" content="https://trapblock.com">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://trapblock.com">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f1f3d;
+      --navy-light: #1a2f52;
+      --navy-border: #243a63;
+      --white: #ffffff;
+      --gray: #94a3b8;
+      --gray-light: #f1f5f9;
+      --green: #22c55e;
+      --green-dark: #16a34a;
+      --red: #ef4444;
+      --gold: #f59e0b;
+      --accent: #3b82f6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15, 31, 61, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--navy-border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-size: 20px; font-weight: 800; color: var(--white);
+      text-decoration: none; letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--green); color: var(--navy); border: none;
+      padding: 10px 20px; border-radius: 8px; font-weight: 700;
+      font-size: 14px; cursor: pointer; text-decoration: none;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--green-dark); }
+
+    /* HERO */
+    .hero {
+      padding: 100px 24px 80px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.12) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
+      color: var(--green); padding: 6px 14px; border-radius: 100px;
+      font-size: 13px; font-weight: 600; margin-bottom: 32px;
+    }
+    .hero-badge::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 900; line-height: 1.1;
+      letter-spacing: -1.5px; margin-bottom: 24px;
+      max-width: 800px; margin-left: auto; margin-right: auto;
+    }
+    h1 em { color: var(--green); font-style: normal; }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px); color: var(--gray);
+      max-width: 600px; margin: 0 auto 48px;
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green); color: var(--navy);
+      padding: 16px 32px; border-radius: 10px; font-weight: 800;
+      font-size: 16px; text-decoration: none; transition: all .2s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      padding: 16px 32px; border-radius: 10px; font-weight: 600;
+      font-size: 16px; text-decoration: none;
+      border: 1px solid var(--navy-border); transition: all .2s;
+    }
+    .btn-secondary:hover { border-color: var(--gray); }
+    .hero-proof {
+      margin-top: 48px; color: var(--gray); font-size: 14px;
+      display: flex; align-items: center; justify-content: center; gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-proof span { display: flex; align-items: center; gap: 6px; }
+    .hero-proof span::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+    /* SECTION BASE */
+    section { padding: 80px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--green); margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(28px, 4vw, 44px); font-weight: 800;
+      letter-spacing: -1px; margin-bottom: 16px;
+    }
+    .section-sub { color: var(--gray); font-size: 18px; max-width: 560px; }
+
+    /* HOW IT WORKS */
+    .how { background: var(--navy-light); }
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px; margin-top: 56px;
+    }
+    .step {
+      background: var(--navy); border: 1px solid var(--navy-border);
+      border-radius: 16px; padding: 32px;
+    }
+    .step-num {
+      width: 40px; height: 40px; background: var(--green);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 18px; color: var(--navy); margin-bottom: 20px;
+    }
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .step p { color: var(--gray); font-size: 15px; }
+
+    /* LIVE PROOF */
+    .proof-card {
+      background: var(--navy-light); border: 1px solid var(--navy-border);
+      border-radius: 20px; padding: 40px; margin-top: 48px;
+    }
+    .proof-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 32px;
+    }
+    .blocked-badge {
+      background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3);
+      color: var(--red); padding: 4px 10px; border-radius: 6px;
+      font-size: 12px; font-weight: 700;
+    }
+    .chain {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .chain-step {
+      display: flex; align-items: flex-start; gap: 16px; padding: 16px;
+      background: var(--navy); border-radius: 12px; border: 1px solid var(--navy-border);
+    }
+    .chain-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .chain-icon.tiktok { background: rgba(0,0,0,0.5); }
+    .chain-icon.relay { background: rgba(239,68,68,0.15); }
+    .chain-icon.blocked { background: rgba(34,197,94,0.15); }
+    .chain-content { flex: 1; }
+    .chain-content strong { display: block; font-size: 14px; margin-bottom: 2px; }
+    .chain-content span { color: var(--gray); font-size: 13px; font-family: monospace; }
+    .chain-result {
+      font-size: 12px; font-weight: 700; margin-top: 4px;
+    }
+    .chain-result.blocked { color: var(--green); }
+    .chain-result.passed { color: var(--red); }
+    .chain-arrow {
+      text-align: center; color: var(--gray); font-size: 20px; line-height: 1;
+      padding: 2px 0;
+    }
+
+    /* WHAT IT BLOCKS */
+    .blocks-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+    .block-card {
+      background: var(--navy-light); border: 1px solid var(--navy-border);
+      border-radius: 16px; padding: 28px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .block-icon {
+      font-size: 28px; flex-shrink: 0;
+    }
+    .block-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .block-card p { color: var(--gray); font-size: 14px; }
+
+    /* DEVICES */
+    .devices { background: var(--navy-light); }
+    .device-pills {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px;
+    }
+    .pill {
+      background: var(--navy); border: 1px solid var(--navy-border);
+      border-radius: 100px; padding: 10px 20px;
+      font-size: 15px; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .pill-check { color: var(--green); font-size: 14px; }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px; margin-top: 56px; max-width: 700px; margin-left: auto; margin-right: auto;
+    }
+    .price-card {
+      background: var(--navy-light); border: 1px solid var(--navy-border);
+      border-radius: 20px; padding: 36px; text-align: center;
+    }
+    .price-card.popular {
+      border-color: var(--green);
+      background: linear-gradient(135deg, rgba(34,197,94,0.08), var(--navy-light));
+    }
+    .popular-badge {
+      background: var(--green); color: var(--navy);
+      font-size: 11px; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 100px;
+      display: inline-block; margin-bottom: 16px;
+    }
+    .price-name { font-size: 16px; font-weight: 600; color: var(--gray); margin-bottom: 8px; }
+    .price-amount { font-size: 52px; font-weight: 900; letter-spacing: -2px; }
+    .price-period { color: var(--gray); font-size: 14px; margin-bottom: 8px; }
+    .price-save {
+      color: var(--green); font-size: 13px; font-weight: 700;
+      margin-bottom: 32px;
+    }
+    .price-features { list-style: none; margin-bottom: 32px; text-align: left; }
+    .price-features li {
+      padding: 8px 0; border-bottom: 1px solid var(--navy-border);
+      font-size: 14px; display: flex; align-items: center; gap: 10px; color: var(--gray);
+    }
+    .price-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .price-trial { color: var(--gray); font-size: 13px; margin-top: 12px; }
+
+    /* FAQ */
+    .faq { background: var(--navy-light); }
+    .faq-list { margin-top: 48px; max-width: 720px; }
+    .faq-item {
+      border-bottom: 1px solid var(--navy-border); padding: 24px 0;
+    }
+    .faq-q {
+      font-size: 17px; font-weight: 700; margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .faq-a { color: var(--gray); font-size: 15px; line-height: 1.7; }
+
+    /* CTA SECTION */
+    .cta-section {
+      text-align: center; padding: 100px 24px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(34,197,94,0.1) 0%, transparent 70%);
+    }
+    .cta-section h2 { margin-bottom: 16px; }
+    .cta-section p { color: var(--gray); font-size: 18px; margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    /* FOOTER */
+    footer {
+      background: rgba(0,0,0,0.3);
+      border-top: 1px solid var(--navy-border);
+      padding: 48px 24px 32px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; flex-wrap: wrap;
+      gap: 40px; margin-bottom: 48px;
+    }
+    .footer-brand p { color: var(--gray); font-size: 14px; margin-top: 8px; max-width: 240px; }
+    .footer-col h4 { font-size: 13px; font-weight: 700; margin-bottom: 16px; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { color: var(--gray); text-decoration: none; font-size: 14px; transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid var(--navy-border); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { color: var(--gray); font-size: 13px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero { padding: 60px 24px 60px; }
+      .proof-card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">Trap<span>Block</span></a>
+    <ul class="nav-links">
+      <li><a href="#how-it-works">How it works</a></li>
+      <li><a href="#what-it-blocks">What it blocks</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#pricing" class="nav-cta">Start Free Trial</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Now available for iPhone · Android & Mac coming soon</div>
+  <h1>The Ad Looked Legit. <em>The Scam Was Hidden.</em></h1>
+  <p class="hero-sub">You trust TikTok to catch bad ads. You trust the App Store to catch bad apps. Scammers know this and use it against you. They run ads that look completely real, sneak through a website you never see, and drop a fake casino app into your App Store. TrapBlock recognizes that fake website and blocks it before you ever get there.</p>
+  <div class="hero-buttons">
+    <a href="#pricing" class="btn-primary">Start 7-Day Free Trial</a>
+    <a href="#how-it-works" class="btn-secondary">See how it works</a>
+  </div>
+  <div class="hero-proof">
+    <span>Stops fake casino ads before they reach you</span>
+    <span>Nothing to install, 2 minutes to set up</span>
+    <span>300,000+ scam sites blocked</span>
+    <span>Does not affect licensed casinos</span>
+  </div>
+</section>
+
+<!-- LIVE PROOF -->
+<section>
+  <div class="container">
+    <div class="section-label">Live Example</div>
+    <h2>Three Layers of Trust. One Hidden Scam.</h2>
+    <p class="section-sub">We followed a real fake casino ad from TikTok all the way to the App Store. Here is how the scam chain works and exactly where TrapBlock stops it.</p>
+
+    <div class="proof-card">
+      <div class="proof-header">
+        <span style="font-weight:700;">Ad campaign caught June 29, 2026</span>
+        <span class="blocked-badge">BLOCKED</span>
+      </div>
+      <div class="chain">
+        <div class="chain-step">
+          <div class="chain-icon tiktok">🎵</div>
+          <div class="chain-content">
+            <strong>Step 1: The Ad (looks completely real)</strong>
+            <span>A paid TikTok ad for "Silent Stone", presented as a mobile game. It looks legitimate. TikTok's system approves it.</span>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-icon relay">⚠️</div>
+          <div class="chain-content">
+            <strong>Step 2: The Hidden Website (the actual trap)</strong>
+            <span>Tapping the ad silently passes through a fake website you never see. This is where the scam lives. No safety list had flagged it yet.</span>
+            <div class="chain-result passed">Invisible to the user. Registered that same week. Completely new.</div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-icon blocked">🛡️</div>
+          <div class="chain-content">
+            <strong>TrapBlock stops it right here</strong>
+            <span>TrapBlock recognizes the fake website by its pattern and blocks it instantly.</span>
+            <div class="chain-result blocked">✓ Blocked. The App Store page never opens. You never knew it was there.</div>
+          </div>
+        </div>
+      </div>
+      <p style="color:var(--gray);font-size:14px;margin-top:24px;">The same scammer also ran two other fake websites that same week: one leading to an app called Symbionyx, another to Nill Recall. All three were blocked automatically, before any of our users ever saw them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how-it-works">
+  <div class="container">
+    <div class="section-label">How it works</div>
+    <h2>Protection in 3 Steps</h2>
+    <p class="section-sub">No app to install. No VPN. Just a 2-minute setup that protects every browser and app on your device.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Subscribe</h3>
+        <p>Create your account and enter your card details. You will not be charged for 7 days.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Get Your Setup File</h3>
+        <p>We create a small settings file for your iPhone. Download it in one tap from your account page.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Install in 30 Seconds</h3>
+        <p>Open the file on your iPhone and tap Install. That is it. TrapBlock runs quietly in the background from that moment on, inside every app.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT BLOCKS -->
+<section id="what-it-blocks">
+  <div class="container">
+    <div class="section-label">What it blocks</div>
+    <h2>Scammers Only. Not Licensed Casinos.</h2>
+    <p class="section-sub">TrapBlock does not block licensed gambling websites. It only targets the fake infrastructure that scam casino advertisers use to slip past TikTok's, Meta's, and Google's safety checks. And unlike browser extensions, it protects you across your entire iPhone, inside every app, not just Safari.</p>
+    <div class="blocks-grid">
+      <div class="block-card">
+        <div class="block-icon">🎯</div>
+        <div>
+          <h3>The Hidden Ad Middleman</h3>
+          <p>When you tap a fake casino ad, it silently passes through a temporary website before opening the App Store. That invisible middleman is exactly what TrapBlock blocks — even if it was registered this morning.</p>
+        </div>
+      </div>
+      <div class="block-card">
+        <div class="block-icon">📱</div>
+        <div>
+          <h3>Works Inside Every App</h3>
+          <p>Browser extensions only protect you inside Safari. TrapBlock protects you inside TikTok, Instagram, YouTube, Facebook, and every other app on your phone, because it works at the iPhone level, not inside a single browser.</p>
+        </div>
+      </div>
+      <div class="block-card">
+        <div class="block-icon">🏪</div>
+        <div>
+          <h3>Fake App Store Pages</h3>
+          <p>The hidden website between the ad and the App Store is the scam. Block that website, and the App Store page for the fake casino app never opens.</p>
+        </div>
+      </div>
+      <div class="block-card">
+        <div class="block-icon">🌐</div>
+        <div>
+          <h3>300,000+ Known Scam Sites</h3>
+          <p>Over 300,000 fake gambling, crypto scam, and fraud websites blocked from day one. The list covers everything from long-running fake casinos to websites registered last week.</p>
+        </div>
+      </div>
+      <div class="block-card">
+        <div class="block-icon">🔄</div>
+        <div>
+          <h3>Catches Brand New Scams Too</h3>
+          <p>Scammers register fresh fake websites every single day to stay ahead of safety lists. TrapBlock recognizes them by their patterns, not just their names. A new scam site gets blocked the moment someone first encounters it.</p>
+        </div>
+      </div>
+      <div class="block-card">
+        <div class="block-icon">🔒</div>
+        <div>
+          <h3>Fake Icons on Your Home Screen</h3>
+          <p>Some scam ads skip the App Store entirely and try to add a fake casino icon directly to your iPhone home screen. TrapBlock blocks those too.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEVICES -->
+<section class="devices">
+  <div class="container">
+    <div class="section-label">Platform</div>
+    <h2>iPhone First. More Coming Soon.</h2>
+    <p class="section-sub">Most fake casino ad scams are built to target iPhone users. Scammers know that people on iPhone deeply trust the App Store and the platforms where the ads run. That trust is the vulnerability. It is why we started here.</p>
+    <div class="device-pills">
+      <div class="pill"><span class="pill-check">✓</span> iPhone — available now</div>
+      <div class="pill"><span class="pill-check">✓</span> iPad — available now</div>
+      <div class="pill" style="opacity:0.45;"><span style="color:var(--gray);">○</span> Mac — coming soon</div>
+      <div class="pill" style="opacity:0.45;"><span style="color:var(--gray);">○</span> Android — coming soon</div>
+      <div class="pill" style="opacity:0.45;"><span style="color:var(--gray);">○</span> Windows — coming soon</div>
+      <div class="pill" style="opacity:0.45;"><span style="color:var(--gray);">○</span> Home Router — coming soon</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">Pricing</div>
+    <h2>Simple, Transparent Pricing</h2>
+    <p class="section-sub" style="margin:0 auto 0;">7-day free trial. Cancel anytime. No charge for the first 7 days.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Monthly</div>
+        <div class="price-amount">€4.99</div>
+        <div class="price-period">per month</div>
+        <ul class="price-features">
+          <li>iPhone & iPad covered</li>
+          <li>300,000+ domains blocked</li>
+          <li>New scams blocked automatically</li>
+          <li>Protection updated every day</li>
+          <li>Email support</li>
+        </ul>
+        <a href="STRIPE_MONTHLY_LINK" class="btn-primary" style="display:block;text-align:center;">Start Free Trial</a>
+        <p class="price-trial">7 days free, then €4.99/month</p>
+      </div>
+      <div class="price-card popular">
+        <div class="popular-badge">Best Value</div>
+        <div class="price-name">Annual</div>
+        <div class="price-amount">€39.99</div>
+        <div class="price-period">per year</div>
+        <div class="price-save">Save €19.89 vs monthly</div>
+        <ul class="price-features">
+          <li>iPhone & iPad covered</li>
+          <li>300,000+ domains blocked</li>
+          <li>New scams blocked automatically</li>
+          <li>Protection updated every day</li>
+          <li>Priority email support</li>
+        </ul>
+        <a href="STRIPE_ANNUAL_LINK" class="btn-primary" style="display:block;text-align:center;">Start Free Trial</a>
+        <p class="price-trial">7 days free, then €39.99/year</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2>Common Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Do you block licensed or regulated casinos?</div>
+        <div class="faq-a">No. We only block the fake websites that scam casino ads use to get around platform safety checks. Real, licensed gambling services are not affected. The problem we are solving is not gambling. It is people pretending to offer it while actually running a scam. If a business is legitimate and licensed, TrapBlock will not touch it.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does TrapBlock work inside TikTok, YouTube, Instagram, and Google?</div>
+        <div class="faq-a">Yes. Most ad blockers only work inside your browser. TrapBlock works at the iPhone level, so it protects you inside every app, including TikTok, Instagram, YouTube, Facebook, and Google. When a fake ad tries to load, it gets stopped before any app can open it.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does it slow down my internet?</div>
+        <div class="faq-a">No. In most cases it actually makes your browsing slightly faster because it skips connections to known scam sites instantly instead of waiting for them to load. You will not notice any difference in your everyday use.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if a legitimate website gets blocked by mistake?</div>
+        <div class="faq-a">Email us at support@trapblock.com with the domain and we'll review it within 24 hours. Confirmed legitimate sites are added to the permanent whitelist and never blocked again.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does it work on Android and Windows?</div>
+        <div class="faq-a">Android and Windows support is coming soon. Right now TrapBlock is available for iPhone and iPad. We started with iOS because iPhone users are the primary target of fake casino ad scams — scammers know iOS users trust both the App Store and the ad platforms, which makes them the most valuable audience to deceive.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is iCloud Private Relay and does it affect TrapBlock?</div>
+        <div class="faq-a">iCloud Private Relay is an Apple feature that hides your browsing from some trackers. When it is on, it can sometimes get in the way of TrapBlock's protection inside Safari. We recommend turning it off for full coverage: Settings > [Your Name] > iCloud > Private Relay > Off. Every other app on your phone stays protected regardless.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why can't TikTok, Google, or the App Store catch these scams themselves?</div>
+        <div class="faq-a">Scammers register a fresh fake website for each ad campaign. When TikTok or Google's safety system scans the ad, that website looks completely clean. Only real users get sent to the fake casino. By the time the platforms catch on, the campaign has already run. Scammers then register a new website and start again. TrapBlock catches these sites by recognising their patterns, not their history, so it works even on ones that have never been seen before.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I cancel anytime?</div>
+        <div class="faq-a">Yes. Cancel from your dashboard at any time. Your protection stays active until the end of your billing period. No cancellation fees.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Stop the Scam Before It Reaches Your iPhone</h2>
+    <p>7-day free trial, no charge until day 8. iPhone setup in 2 minutes. We block scammers, not licensed casinos.</p>
+    <a href="#pricing" class="btn-primary">Start Free Trial</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" class="logo">Trap<span>Block</span></a>
+        <p>Stops fake casino scams before they reach your iPhone. We block the scammers, not the platforms, and not licensed casinos.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#what-it-blocks">What it blocks</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/guides">Setup Guides</a></li>
+          <li><a href="/guides/iphone">iPhone Setup</a></li>
+          <li><a href="/guides/android">Android Setup</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="mailto:support@trapblock.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 TrapBlock. All rights reserved.</p>
+      <p style="color:var(--gray);font-size:13px;">We block scammers. Not licensed casinos.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
