@@ -1,4 +1,4 @@
-// TrapBlock DNS Worker v10 — with pattern-based auto-blocking + in-memory KV cache
+// TrapBlock DNS Worker v11 — with pattern-based auto-blocking + in-memory KV cache + sinkhole (0.0.0.0) instead of NXDOMAIN
 
 const SUSPICIOUS_TLDS = [
   '.fun', '.space', '.top', '.shop', '.online', '.icu', '.xyz',
@@ -81,7 +81,7 @@ export default {
       const val = has ? await env.BLOCKLIST.get('bwin.com', { cacheTtl: 3600 }) : null;
       const patternTest = isPatternBlocked('topwininkow.shop');
       return new Response(JSON.stringify({
-        version: 'v10',
+        version: 'v11',
         BLOCKLIST_defined: has,
         bwin_com_value: val,
         pattern_test_topwininkow_shop: patternTest,
@@ -138,7 +138,7 @@ async function handleRFC8484Get(dnsParam, env, cors) {
     if (domain) {
       const { blocked } = await shouldBlock(domain, env);
       if (blocked) {
-        return new Response(nxdomain(binary), {
+        return new Response(sinkhole(binary), {
           headers: { ...cors, 'Content-Type': 'application/dns-message' }
         });
       }
@@ -169,8 +169,9 @@ async function handleJsonGet(request, env, cors) {
     const { blocked } = await shouldBlock(name, env);
     if (blocked) {
       return new Response(JSON.stringify({
-        Status: 3, TC: false, RD: true, RA: true, AD: false, CD: false,
-        Question: [{ name: name + '.', type: 1 }], Answer: [],
+        Status: 0, TC: false, RD: true, RA: true, AD: false, CD: false,
+        Question: [{ name: name + '.', type: 1 }],
+        Answer: [{ name: name + '.', type: 1, TTL: 3600, data: '0.0.0.0' }],
         Comment: 'Blocked by TrapBlock'
       }), { headers: { ...cors, 'Content-Type': 'application/dns-json' } });
     }
@@ -202,7 +203,7 @@ async function handlePost(request, env, cors) {
     if (domain) {
       const { blocked } = await shouldBlock(domain, env);
       if (blocked) {
-        return new Response(nxdomain(body), {
+        return new Response(sinkhole(body), {
           headers: { ...cors, 'Content-Type': 'application/dns-message' }
         });
       }
@@ -271,9 +272,25 @@ function parseDomain(buffer) {
   } catch (e) { return null; }
 }
 
-function nxdomain(query) {
-  const r = new Uint8Array(new Uint8Array(query));
-  r[2] = 0x81; r[3] = 0x83; r[6] = 0; r[7] = 0;
+// Return 0.0.0.0 A record instead of NXDOMAIN — browsers fail fast with "connection refused"
+// rather than hanging on NXDOMAIN, which crashes TikTok's in-app browser
+function sinkhole(query) {
+  const q = new Uint8Array(query);
+  const answer = new Uint8Array([
+    0xC0, 0x0C,              // name: pointer back to question name at offset 12
+    0x00, 0x01,              // type: A
+    0x00, 0x01,              // class: IN
+    0x00, 0x00, 0x0E, 0x10, // TTL: 3600s
+    0x00, 0x04,              // rdlength: 4 bytes
+    0x00, 0x00, 0x00, 0x00, // rdata: 0.0.0.0
+  ]);
+  const r = new Uint8Array(q.length + answer.length);
+  r.set(q);
+  r.set(answer, q.length);
+  r[2] = 0x81; r[3] = 0x80; // QR=1, RD=1, RA=1, RCODE=0 (NOERROR)
+  r[6] = 0x00; r[7] = 0x01; // ANCOUNT=1
+  r[8] = 0x00; r[9] = 0x00; // NSCOUNT=0
+  r[10] = 0x00; r[11] = 0x00; // ARCOUNT=0
   return r.buffer;
 }
 
