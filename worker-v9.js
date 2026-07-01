@@ -1,31 +1,68 @@
-// TrapBlock DNS Worker v11 — with pattern-based auto-blocking + in-memory KV cache + sinkhole (0.0.0.0) instead of NXDOMAIN
+// TrapBlock DNS Worker v15 — whitelist shared analytics infra that gambling sites pollute
 
 const SUSPICIOUS_TLDS = [
   '.fun', '.space', '.top', '.shop', '.online', '.icu', '.xyz',
   '.click', '.live', '.vip', '.win', '.bet', '.casino', '.slots',
   '.games', '.quest', '.info', '.life', '.world', '.site', '.club',
   '.finance', '.investments', '.trading', '.exchange', '.market',
+  '.website',
 ];
 
+// Strict gambling-only keywords — no generic finance/tech terms that hit legitimate services
 const GAMBLING_KEYWORDS = [
-  'win', 'game', 'casino', 'bet', 'slot', 'spin', 'quest',
-  'play', 'luck', 'bonus', 'prize', 'jackpot', 'poker', 'bingo',
-  'lotto', 'wheel', 'chips', 'wager', 'odds', 'sport',
+  'casino', 'slots', 'slot', 'poker', 'bingo', 'lotto', 'lottery',
+  'jackpot', 'roulette', 'blackjack', 'betway', 'betfair',
+  'wager', 'wagering', 'gambling', 'gamble',
   'topwin', 'bigwin', 'megawin', 'hotwin', 'fastwin', 'easywin',
-  // crypto / fake trading
-  'crypto', 'bitcoin', 'btc', 'eth', 'token', 'defi', 'nft',
-  'trade', 'trader', 'trading', 'invest', 'profit', 'earn',
-  'yield', 'stake', 'swap', 'airdrop', 'mining', 'miner',
-  'wallet', 'exchange', 'forex', 'binary',
+  // Crypto scam terms — only explicit scam phrases, not generic finance words
+  'bitcoin', 'btc', 'airdrop', 'defi', 'nft',
 ];
 
-// Known legitimate domains that might match patterns - never block these
+// Domains that must never be blocked — applies to both KV and pattern checks
 const WHITELIST = [
-  'google.com', 'apple.com', 'microsoft.com', 'amazon.com',
-  'cloudflare.com', 'facebook.com', 'instagram.com', 'tiktok.com',
-  'icloud.com', 'akamai.com', 'fastly.com', 'shopify.com',
-  'wordpress.com', 'wix.com', 'squarespace.com', 'stripe.com',
-  'paypal.com', 'ebay.com', 'etsy.com', 'aliexpress.com'
+  // Social / ad platforms
+  'tiktok.com', 'tiktokv.com', 'tiktokcdn.com', 'tiktokw.us',
+  'bytedance.com', 'pstatp.com', 'byteimg.com', 'ibytedtos.com',
+  'facebook.com', 'fbcdn.net', 'instagram.com', 'threads.net',
+  'google.com', 'googleapis.com', 'googletagmanager.com', 'googlesyndication.com', 'doubleclick.net', 'gstatic.com',
+  'youtube.com', 'ytimg.com',
+  'snapchat.com', 'snap.com',
+  'twitter.com', 'x.com', 'twimg.com',
+  'reddit.com', 'redd.it',
+  'pinterest.com',
+  // Apple / Microsoft / Amazon
+  'apple.com', 'icloud.com', 'mzstatic.com',
+  'microsoft.com', 'azure.com', 'msftconnecttest.com',
+  'amazon.com', 'amazonaws.com', 'cloudfront.net',
+  // CDN / infra
+  'cloudflare.com', 'akamai.com', 'akamaized.net', 'fastly.com', 'fastly.net',
+  'akamaihd.net', 'edgekey.net',
+  // Commerce / payments
+  'shopify.com', 'stripe.com', 'paypal.com', 'ebay.com',
+  'etsy.com', 'aliexpress.com', 'wordpress.com', 'wix.com', 'squarespace.com',
+  // Ad attribution & measurement (legitimate app tracking platforms)
+  'adjust.com', 'app.adjust.com',
+  'appsflyer.com', 'app.appsflyer.com',
+  'branch.io',
+  'kochava.com',
+  'app-measurement.com',
+  'googleadservices.com', 'googleads.g.doubleclick.net',
+  'mixpanel.com',
+  'outbrain.com', 'taboola.com', 'criteo.com',
+  // Shared analytics/crash infrastructure — gambling sites use these but so does everything else.
+  // Blocking them breaks Google Search app, Slack, and any app using Firebase/Crashlytics.
+  'google-analytics.com', 'ssl.google-analytics.com', 'www.google-analytics.com',
+  'googletagmanager.com',
+  'firebase.google.com', 'firebaseapp.com', 'firebaseio.com',
+  'crashlytics.com', 'fabric.io',
+  'segment.io', 'segment.com',
+  'amplitude.com',
+  'mixpanel.com',
+  // Yandex analytics (used internally by Yandex Browser — blocking breaks the browser)
+  'mc.yandex.ru', 'mc.yandex.com', 'metrika.yandex.ru',
+  'ymetrica1.com', 'counter.yadro.ru',
+  // Other legit
+  'netflix.com', 'spotify.com', 'github.com', 'linkedin.com',
 ];
 
 const domainCache = new Map();
@@ -81,7 +118,7 @@ export default {
       const val = has ? await env.BLOCKLIST.get('bwin.com', { cacheTtl: 3600 }) : null;
       const patternTest = isPatternBlocked('topwininkow.shop');
       return new Response(JSON.stringify({
-        version: 'v11',
+        version: 'v15',
         BLOCKLIST_defined: has,
         bwin_com_value: val,
         pattern_test_topwininkow_shop: patternTest,
@@ -114,8 +151,15 @@ export default {
   }
 };
 
+function isWhitelisted(domain) {
+  domain = domain.toLowerCase().replace(/\.$/, '');
+  return WHITELIST.some(safe => domain === safe || domain.endsWith('.' + safe));
+}
+
 async function shouldBlock(domain, env) {
-  // 1. Check KV blocklist first
+  // 0. Whitelist always wins — applies to both KV and pattern checks
+  if (isWhitelisted(domain)) return { blocked: false };
+  // 1. Check KV blocklist
   if (await isDomainBlocked(domain, env)) return { blocked: true, reason: 'blocklist' };
   // 2. Check pattern matching
   if (isPatternBlocked(domain)) {
@@ -138,7 +182,7 @@ async function handleRFC8484Get(dnsParam, env, cors) {
     if (domain) {
       const { blocked } = await shouldBlock(domain, env);
       if (blocked) {
-        return new Response(sinkhole(binary), {
+        return new Response(nxdomain(binary), {
           headers: { ...cors, 'Content-Type': 'application/dns-message' }
         });
       }
@@ -203,7 +247,7 @@ async function handlePost(request, env, cors) {
     if (domain) {
       const { blocked } = await shouldBlock(domain, env);
       if (blocked) {
-        return new Response(sinkhole(body), {
+        return new Response(nxdomain(body), {
           headers: { ...cors, 'Content-Type': 'application/dns-message' }
         });
       }
@@ -272,25 +316,9 @@ function parseDomain(buffer) {
   } catch (e) { return null; }
 }
 
-// Return 0.0.0.0 A record instead of NXDOMAIN — browsers fail fast with "connection refused"
-// rather than hanging on NXDOMAIN, which crashes TikTok's in-app browser
-function sinkhole(query) {
-  const q = new Uint8Array(query);
-  const answer = new Uint8Array([
-    0xC0, 0x0C,              // name: pointer back to question name at offset 12
-    0x00, 0x01,              // type: A
-    0x00, 0x01,              // class: IN
-    0x00, 0x00, 0x0E, 0x10, // TTL: 3600s
-    0x00, 0x04,              // rdlength: 4 bytes
-    0x00, 0x00, 0x00, 0x00, // rdata: 0.0.0.0
-  ]);
-  const r = new Uint8Array(q.length + answer.length);
-  r.set(q);
-  r.set(answer, q.length);
-  r[2] = 0x81; r[3] = 0x80; // QR=1, RD=1, RA=1, RCODE=0 (NOERROR)
-  r[6] = 0x00; r[7] = 0x01; // ANCOUNT=1
-  r[8] = 0x00; r[9] = 0x00; // NSCOUNT=0
-  r[10] = 0x00; r[11] = 0x00; // ARCOUNT=0
+function nxdomain(query) {
+  const r = new Uint8Array(new Uint8Array(query));
+  r[2] = 0x81; r[3] = 0x83; r[6] = 0; r[7] = 0;
   return r.buffer;
 }
 
