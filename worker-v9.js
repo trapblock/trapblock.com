@@ -1,4 +1,4 @@
-// TrapBlock DNS Worker v15 — whitelist shared analytics infra that gambling sites pollute
+// TrapBlock DNS Worker v18 — whitelist Braze + broader Yandex/monitoring coverage
 
 const SUSPICIOUS_TLDS = [
   '.fun', '.space', '.top', '.shop', '.online', '.icu', '.xyz',
@@ -49,20 +49,47 @@ const WHITELIST = [
   'googleadservices.com', 'googleads.g.doubleclick.net',
   'mixpanel.com',
   'outbrain.com', 'taboola.com', 'criteo.com',
-  // Shared analytics/crash infrastructure — gambling sites use these but so does everything else.
-  // Blocking them breaks Google Search app, Slack, and any app using Firebase/Crashlytics.
-  'google-analytics.com', 'ssl.google-analytics.com', 'www.google-analytics.com',
+  // Shared analytics/crash/monitoring infrastructure.
+  // Gambling sites use all of these, so they end up in gambling blocklists.
+  // Blocking them breaks every legitimate app that uses the same services.
+  'google-analytics.com', 'ssl.google-analytics.com',
   'googletagmanager.com',
   'firebase.google.com', 'firebaseapp.com', 'firebaseio.com',
   'crashlytics.com', 'fabric.io',
   'segment.io', 'segment.com',
   'amplitude.com',
-  'mixpanel.com',
-  // Yandex analytics (used internally by Yandex Browser — blocking breaks the browser)
+  'mixpanel.com', 'mxpnl.com',        // mxpnl.com is Mixpanel's CDN domain
+  // Error reporting
+  'sentry.io', 'ingest.sentry.io',
+  'bugsnag.com',
+  'rollbar.com',
+  // Performance monitoring
+  'newrelic.com', 'nr-data.net',
+  'datadoghq.com', 'datadoghq.eu',
+  // Session recording (used widely, including by Slack and Google)
+  'hotjar.com',
+  'fullstory.com',
+  'heapanalytics.com',
+  'logrocket.io', 'lr-in.com', 'lr-ingest.io',
+  // Customer messaging
+  'intercom.io', 'intercomcdn.com',
+  // Product analytics
+  'pendo.io',
+  // Yandex infrastructure — all *.yandex.* subdomains must pass through
+  'yandex.ru', 'yandex.com', 'yandex.net',
   'mc.yandex.ru', 'mc.yandex.com', 'metrika.yandex.ru',
   'ymetrica1.com', 'counter.yadro.ru',
   // Other legit
   'netflix.com', 'spotify.com', 'github.com', 'linkedin.com',
+  'zendesk.com', 'zdassets.com',
+  'twilio.com',
+  'cloudinary.com',
+  'gravatar.com',
+  // Push notification and customer engagement platforms
+  'braze.com', 'brazesdk.com', 'iad-01.braze.com', 'fra-01.braze.com',
+  'onesignal.com', 'airship.com', 'leanplum.com', 'iterable.com',
+  // Telemetry & tracing
+  'honeycomb.io', 'lightstep.com',
 ];
 
 const domainCache = new Map();
@@ -118,7 +145,7 @@ export default {
       const val = has ? await env.BLOCKLIST.get('bwin.com', { cacheTtl: 3600 }) : null;
       const patternTest = isPatternBlocked('topwininkow.shop');
       return new Response(JSON.stringify({
-        version: 'v15',
+        version: 'v18',
         BLOCKLIST_defined: has,
         bwin_com_value: val,
         pattern_test_topwininkow_shop: patternTest,

@@ -74,8 +74,21 @@ WHITELIST = {
     'github.com',
     # Analytics and attribution (shared with gambling sites but used by everyone)
     'adjust.com', 'appsflyer.com', 'branch.io', 'kochava.com',
-    'mixpanel.com', 'segment.io', 'segment.com', 'amplitude.com',
+    'mixpanel.com', 'mxpnl.com', 'segment.io', 'segment.com', 'amplitude.com',
     'outbrain.com', 'taboola.com', 'criteo.com',
+    # Error reporting / APM
+    'sentry.io', 'bugsnag.com', 'rollbar.com',
+    'newrelic.com', 'nr-data.net',
+    'datadoghq.com', 'datadoghq.eu',
+    # Session recording / analytics
+    'hotjar.com', 'fullstory.com', 'heapanalytics.com',
+    'logrocket.io', 'lr-in.com', 'lr-ingest.io',
+    # Customer engagement / messaging
+    'intercom.io', 'intercomcdn.com', 'pendo.io',
+    'braze.com', 'iad-01.braze.com', 'fra-01.braze.com',
+    'onesignal.com', 'airship.com', 'leanplum.com', 'iterable.com',
+    # Telemetry
+    'honeycomb.io', 'lightstep.com',
     # Yandex
     'yandex.ru', 'yandex.com', 'yandex.net', 'yastatic.net',
     'mc.yandex.ru', 'mc.yandex.com', 'metrika.yandex.ru', 'ymetrica1.com',
@@ -83,6 +96,9 @@ WHITELIST = {
     # Certificate validation — blocking these breaks HTTPS for everyone
     'ocsp.digicert.com', 'ocsp.apple.com', 'ocsp.pki.goog', 'pki.goog',
     'ocsp.sectigo.com', 'ocsp.comodoca.com',
+    # Commerce
+    'zendesk.com', 'zdassets.com', 'twilio.com',
+    'cloudinary.com', 'gravatar.com',
 }
 
 DOMAIN_RE = re.compile(
