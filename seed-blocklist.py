@@ -87,6 +87,15 @@ WHITELIST = {
     'intercom.io', 'intercomcdn.com', 'pendo.io',
     'braze.com', 'iad-01.braze.com', 'fra-01.braze.com',
     'onesignal.com', 'airship.com', 'leanplum.com', 'iterable.com',
+    'customer.io',
+    # A/B testing and feature flags
+    'optimizely.com', 'split.io', 'launchdarkly.com',
+    'statsig.com', 'featuregates.org',
+    # CRM / marketing analytics
+    'hubspot.com', 'hs-analytics.net', 'hs-banner.com', 'hsforms.com',
+    'hsappstatic.net', 'hscollectedforms.net',
+    # CDN analytics — Cloudflare's own web analytics beacon
+    'cloudflareinsights.com',
     # Telemetry
     'honeycomb.io', 'lightstep.com',
     # Yandex

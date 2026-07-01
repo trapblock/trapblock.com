@@ -1,4 +1,4 @@
-// TrapBlock DNS Worker v18 — whitelist Braze + broader Yandex/monitoring coverage
+// TrapBlock DNS Worker v19 — whitelist Cloudflare Insights, Optimizely, HubSpot, Split.io
 
 const SUSPICIOUS_TLDS = [
   '.fun', '.space', '.top', '.shop', '.online', '.icu', '.xyz',
@@ -35,7 +35,8 @@ const WHITELIST = [
   'microsoft.com', 'azure.com', 'msftconnecttest.com',
   'amazon.com', 'amazonaws.com', 'cloudfront.net',
   // CDN / infra
-  'cloudflare.com', 'akamai.com', 'akamaized.net', 'fastly.com', 'fastly.net',
+  'cloudflare.com', 'cloudflareinsights.com',    // cloudflareinsights.com = Cloudflare Web Analytics beacon
+  'akamai.com', 'akamaized.net', 'fastly.com', 'fastly.net',
   'akamaihd.net', 'edgekey.net',
   // Commerce / payments
   'shopify.com', 'stripe.com', 'paypal.com', 'ebay.com',
@@ -88,6 +89,15 @@ const WHITELIST = [
   // Push notification and customer engagement platforms
   'braze.com', 'brazesdk.com', 'iad-01.braze.com', 'fra-01.braze.com',
   'onesignal.com', 'airship.com', 'leanplum.com', 'iterable.com',
+  'customer.io',
+  // A/B testing and feature flags (used by Slack, Google apps, etc.)
+  'optimizely.com',
+  'split.io',
+  'launchdarkly.com',
+  'statsig.com', 'featuregates.org',
+  // Marketing analytics and CRM
+  'hubspot.com', 'hs-analytics.net', 'hs-banner.com', 'hsforms.com',
+  'hsappstatic.net', 'hscollectedforms.net',
   // Telemetry & tracing
   'honeycomb.io', 'lightstep.com',
 ];
@@ -145,7 +155,7 @@ export default {
       const val = has ? await env.BLOCKLIST.get('bwin.com', { cacheTtl: 3600 }) : null;
       const patternTest = isPatternBlocked('topwininkow.shop');
       return new Response(JSON.stringify({
-        version: 'v18',
+        version: 'v19',
         BLOCKLIST_defined: has,
         bwin_com_value: val,
         pattern_test_topwininkow_shop: patternTest,
