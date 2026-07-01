@@ -1,0 +1,33 @@
+name: Daily Blocklist Seed
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # Every day at 3 AM UTC
+
+  workflow_dispatch:       # Manual trigger from GitHub UI
+    inputs:
+      include_tif:
+        description: 'Include Hagezi TIF — 1.8M extra threat domains (slower, higher KV cost)'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Seed blocklist
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          INCLUDE_TIF: ${{ github.event.inputs.include_tif || 'false' }}
+        run: python3 seed-blocklist.py
